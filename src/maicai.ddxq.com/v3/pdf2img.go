@@ -1,33 +1,49 @@
-package main
+package pdf2img
 
 import (
 	"fmt"
+	"os"
 
 	"gopkg.in/gographics/imagick.v3/imagick"
 )
 
-func main() {
-	pdfName := "E:/tmp/150003521055_82538184.pdf"
-	savePath := "E:/tmp/150003521055_82538184.png"
-	format := "png"
-	width, height, err := pdf2img(pdfName, savePath, 180, 100, format)
-	if err != nil {
-		fmt.Errorf("pdf2img error:%s", err.Error())
+func printEnv() {
+	environ := os.Environ()
+	for i := range environ {
+		fmt.Println(environ[i])
 	}
-	fmt.Printf("width:%d height:%d ", width, height)
 }
 
-func pdf2img(pdfName string, savePath string, resolution float64, compressionQuality uint, format string) (width uint, height uint, err error) {
+func ConvertToImg(pdfName string, savePath string, resolution float64, compressionQuality uint, format string) (width uint, height uint, err error) {
+
+	//printEnv()
+
 	imagick.Initialize()
 	defer imagick.Terminate()
 
 	mw := imagick.NewMagickWand()
 	defer mw.Destroy()
 
+	if isExists, err := PathExists(pdfName); !isExists {
+		if err != nil {
+			fmt.Printf("文件%s不存在 error：%s", pdfName, err.Error())
+		} else {
+			fmt.Printf("文件%s不存在", pdfName)
+		}
+
+		fmt.Println()
+	} else {
+		fmt.Printf("文件%s存在", pdfName)
+		fmt.Println()
+	}
+
 	//mw.SetImageCompressionQuality(compressionQuality)
 	mw.SetResolution(resolution, resolution)
 	if err := mw.ReadImage(pdfName); err != nil {
 		fmt.Printf("文件读取失败! error:%s", err.Error())
+		fmt.Println()
+	} else {
+		fmt.Printf("文件读取成功")
 		fmt.Println()
 	}
 
@@ -67,5 +83,18 @@ func pdf2img(pdfName string, savePath string, resolution float64, compressionQua
 	if err = newMw.AppendImages(true).WriteImage(savePath); err != nil {
 		fmt.Printf("save png err:%s", err.Error())
 	}
+
+	fmt.Println("convert finish!!")
 	return newMw.GetImageWidth(), newMw.GetImageHeight(), err
+}
+
+func PathExists(path string) (bool, error) {
+	_, err := os.Stat(path)
+	if err == nil {
+		return true, nil
+	}
+	if os.IsNotExist(err) {
+		return false, nil
+	}
+	return false, err
 }
