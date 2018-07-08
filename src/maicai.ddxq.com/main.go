@@ -2,14 +2,13 @@ package main
 
 import (
 	"fmt"
-	//"os"
 
 	"gopkg.in/gographics/imagick.v3/imagick"
 )
 
 func main() {
-	pdfName := "d:/www/150003521055_82538184.pdf"
-	savePath := "d:/www/150003521055_82538184.png"
+	pdfName := "E:/tmp/150003521055_82538184.pdf"
+	savePath := "E:/tmp/150003521055_82538184.png"
 	format := "png"
 	width, height, err := pdf2img(pdfName, savePath, 180, 100, format)
 	if err != nil {
