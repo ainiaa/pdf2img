@@ -45,10 +45,10 @@ func PdfConvertToImg(w http.ResponseWriter, req *http.Request) {
 	resolution, _ := strconv.ParseFloat(req.PostForm.Get("resolution"), 64)
 	compressionQuality, _ := strconv.Atoi(req.PostForm.Get("compressionquality"))
 	format := req.PostForm.Get("format")
-	if !IsEqual(resolution, 0.0) {
+	if IsEqual(resolution, 0.0) {
 		resolution = 180.0
 	}
-	if compressionQuality != 0 {
+	if compressionQuality == 0 {
 		compressionQuality = 100
 	}
 	convertRes := ConvertResponser{}

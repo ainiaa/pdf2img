@@ -18,8 +18,8 @@ type ConverRequester struct {
 
 func sender(conn net.Conn) {
 	requester := &ConverRequester{}
-	requester.PdfName = "d:/www/150003521055_82538184.pdf"
-	requester.SavePath = "d:/www/150003521055_ddd.png"
+	requester.PdfName = "E:/tmp/150003521055_82538184.pdf"
+	requester.SavePath = "E:/tmp/150003521055_ddd.png"
 	data, _ := json.Marshal(requester)
 
 	conn.Write(data)
