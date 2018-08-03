@@ -27,18 +27,6 @@ func IsEqual(f1, f2 float64) bool {
 	return math.Dim(f1, f2) < MIN
 }
 
-func tt() {
-	var resolution float64 = 180
-	var compressionQuality uint = 100
-	format := "png"
-	requester := &ConverRequester{PdfName: "E:/tmp/150003521055_82538184.pdf", SavePath: "E:/tmp/150003521055_ddd.png"}
-	width, height, err := pdf2img.ConvertToImg(requester.PdfName, requester.SavePath, resolution, compressionQuality, format)
-	if err != nil {
-		Log("first convert err:", err.Error())
-	} else {
-		fmt.Printf("tt convert success width:%d height:%d", width, height)
-	}
-}
 
 func main() {
 

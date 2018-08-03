@@ -69,14 +69,10 @@ func ConvertToImg(pdfName string, savePath string, resolution float64, compressi
 		tmpMw.SetFormat(format)
 		tmpMw.StripImage()
 		tmpMw.TrimImage(0)
-		tmpWidth := tmpMw.GetImageWidth() + 10
-		tmpHeight := tmpMw.GetImageHeight() + 10
-		if i+1 == pages {
-			tmpHeight += 10
-		}
 
-		newMw.NewImage(tmpWidth, tmpHeight, imagick.NewPixelWand())
-		newMw.CompositeImage(tmpMw, imagick.COMPOSITE_OP_PLUS, false, 5, 5)
+		newMw.NewImage(tmpMw.GetImageWidth(), tmpMw.GetImageHeight(), imagick.NewPixelWand())
+		newMw.CompositeImage(tmpMw, imagick.COMPOSITE_OP_SRC, true, 0, 0)
+		//newMw.CompositeImage(tmpMw, imagick.COMPOSITE_OP_PLUS, false, 5, 5)
 
 	}
 	newMw.ResetIterator() //不重置 就会变成一张图片
