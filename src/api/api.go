@@ -12,15 +12,25 @@ import (
 	"maicai.ddxq.com/v3"
 )
 
-//请求数据结构
+//ConverRequester 请求数据结构
+// PdfName: pdf文件名称
+// Format：需要format的格式 png jpeg等
+// SavePath：保存路径
+// CompressionQuality：压缩质量
 type ConverRequester struct {
-	PdfName            string  `json:pdfname,omitemty`
-	Format             string  `json:format,omitemty`
-	SavePath           string  `json:savepath,omitemty`
-	Resolution         float64 `json:resolution,omitemty`
-	CompressionQuality uint    `json:compressionQuality,omitemty`
+	PdfName            string  `json:"pdfname,omitemty"`            //pdf文件名称
+	Format             string  `json:"format,omitemty"`             //图片格式
+	SavePath           string  `json:"savepath,omitemty"`           //图片保存路径
+	Resolution         float64 `json:"resolution,omitemty"`         //图片质量
+	CompressionQuality uint    `json:"compressionQuality,omitemty"` //图片压缩比
 }
 
+// ConvertResponser 相应内容
+// Status：状态码
+// Width：图片宽度
+// Height：图片高度
+// Size：图片大小
+// Message：消息内容
 type ConvertResponser struct {
 	Status  int    `json:"status,omitemty"`
 	Width   uint   `json:"width,omitemty"`
@@ -29,13 +39,15 @@ type ConvertResponser struct {
 	Message string `json:"message,omitemty"`
 }
 
+// MIN 最小值
 const MIN = 0.000001
 
+// IsEqual 是否相等
 func IsEqual(f1, f2 float64) bool {
 	return math.Dim(f1, f2) < MIN
 }
 
-// pdf转为png
+// PdfConvertToImg pdf转为png
 func PdfConvertToImg(w http.ResponseWriter, req *http.Request) {
 
 	req.ParseForm() //解析form内容

@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func main() {
+func main2() {
 
 	url := "http://localhost:12345/people/1"
 
@@ -21,7 +21,10 @@ func main() {
 
 	res, _ := http.DefaultClient.Do(req)
 
-	defer res.Body.Close()
+	if res != nil {
+		defer res.Body.Close()
+	}
+
 	body, _ := ioutil.ReadAll(res.Body)
 
 	fmt.Println(res)

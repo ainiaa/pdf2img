@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func main() {
+func main5() {
 
 	url := "http://localhost:12345/people/3"
 
@@ -20,8 +20,10 @@ func main() {
 	req.Header.Add("postman-token", "a9d590dd-1819-15f6-962e-0eabf4b7e707")
 
 	res, _ := http.DefaultClient.Do(req)
+	if res != nil {
+		defer res.Body.Close()
+	}
 
-	defer res.Body.Close()
 	body, _ := ioutil.ReadAll(res.Body)
 
 	fmt.Println(res)

@@ -12,7 +12,8 @@ import (
 	"maicai.ddxq.com/v3"
 )
 
-//请求数据结构
+//ConverRequester 请求数据结构
+
 type ConverRequester struct {
 	PdfName            string  `json:pdfname,omitemty`
 	Format             string  `json:format,omitemty`
@@ -26,7 +27,6 @@ const MIN = 0.000001
 func IsEqual(f1, f2 float64) bool {
 	return math.Dim(f1, f2) < MIN
 }
-
 
 func main() {
 

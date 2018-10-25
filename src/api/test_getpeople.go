@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-func main() {
+func main3() {
 
 	url := "http://localhost:12345/people"
 
@@ -19,7 +19,10 @@ func main() {
 
 	res, _ := http.DefaultClient.Do(req)
 
-	defer res.Body.Close()
+	if res != nil {
+		defer res.Body.Close()
+	}
+
 	body, _ := ioutil.ReadAll(res.Body)
 
 	fmt.Println(res)
